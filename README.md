@@ -1,4 +1,4 @@
-# TicTic ✓✓ - WhatsApp HTTP Service
+# WhatsApp HTTP Service ✓✓
 
 HTTP service for WhatsApp messages. Built on [whatsapp-web.js](https://wwebjs.dev/).
 
@@ -19,7 +19,7 @@ HTTP service for WhatsApp messages. Built on [whatsapp-web.js](https://wwebjs.de
 
 ```bash
 # Clone and configure
-git clone https://github.com/tictic-dev/whatsapp.git
+git clone https://github.com/caiopizzol/whatsapp.git
 cd whatsapp
 export AUTH_TOKEN=your-secret-token-here
 
@@ -68,7 +68,7 @@ curl -X POST http://localhost:3000/sessions/my-session/messages \
   -H "Content-Type: application/json" \
   -d '{
     "to": "5511999887766",
-    "text": "Hello from TicTic!"
+    "text": "Hello from WhatsApp!"
   }'
 
 # Audio message
@@ -132,7 +132,7 @@ Construído com ❤️ sobre [whatsapp-web.js](https://wwebjs.dev/)
 
 <a name="pt-br"></a>
 
-# TicTic ✓✓ - Serviço HTTP WhatsApp
+# Serviço HTTP WhatsApp ✓✓
 
 HTTP service para mensagens WhatsApp. Construído sobre [whatsapp-web.js](https://wwebjs.dev/).
 
@@ -151,7 +151,7 @@ HTTP service para mensagens WhatsApp. Construído sobre [whatsapp-web.js](https:
 
 ```bash
 # Clone e configure
-git clone https://github.com/tictic-dev/whatsapp.git
+git clone https://github.com/caiopizzol/whatsapp.git
 cd whatsapp
 export AUTH_TOKEN=seu-token-secreto-aqui
 
@@ -192,7 +192,7 @@ curl -X POST http://localhost:3000/sessions/minha-sessao/messages \
   -H "Content-Type: application/json" \
   -d '{
     "to": "5511999887766",
-    "text": "Olá do TicTic!"
+    "text": "Olá do WhatsApp!"
   }'
 
 # Mensagem de áudio
