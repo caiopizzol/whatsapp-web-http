@@ -25,7 +25,7 @@ Keep it simple. This service does one thing: send WhatsApp messages through ONE 
 ### Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/tictic-dev/whatsapp.git`
+2. Clone your fork: `git clone https://github.com/caiopizzol/whatsapp-web-http.git`
 3. Install dependencies: `npm install`
 4. Create a branch: `git checkout -b feature/your-feature`
 

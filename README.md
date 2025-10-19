@@ -1,4 +1,7 @@
-# WhatsApp HTTP Service ✓✓
+# WhatsApp HTTP Service
+
+[![Docker Pulls](https://img.shields.io/docker/pulls/cpolive/whatsapp-web-http)](https://hub.docker.com/r/cpolive/whatsapp-web-http)
+[![Docker Image Size](https://img.shields.io/docker/image-size/cpolive/whatsapp-web-http/latest)](https://hub.docker.com/r/cpolive/whatsapp-web-http)
 
 HTTP service for WhatsApp messages. Built on [whatsapp-web.js](https://wwebjs.dev/).
 
@@ -17,10 +20,43 @@ HTTP service for WhatsApp messages. Built on [whatsapp-web.js](https://wwebjs.de
 
 ## Quick Start
 
+### Using Docker Hub (Recommended)
+
+```bash
+# Pull the image
+docker pull cpolive/whatsapp-web-http:latest
+
+# Run the container
+docker run -d \
+  -p 3000:3000 \
+  -e AUTH_TOKEN=your-secret-token-here \
+  -v ./whatsapp-sessions:/app/.wwebjs_auth \
+  --name whatsapp \
+  cpolive/whatsapp-web-http:latest
+
+# Or use Docker Compose
+cat > docker-compose.yml << 'EOF'
+services:
+  whatsapp:
+    image: cpolive/whatsapp-web-http:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - AUTH_TOKEN=${AUTH_TOKEN}
+    volumes:
+      - ./whatsapp-sessions:/app/.wwebjs_auth
+    restart: unless-stopped
+EOF
+
+docker-compose up -d
+```
+
+### Building from Source
+
 ```bash
 # Clone and configure
-git clone https://github.com/caiopizzol/whatsapp.git
-cd whatsapp
+git clone https://github.com/caiopizzol/whatsapp-web-http.git
+cd whatsapp-web-http
 export AUTH_TOKEN=your-secret-token-here
 
 # Run with Docker
@@ -68,7 +104,7 @@ curl -X POST http://localhost:3000/sessions/my-session/messages \
   -H "Content-Type: application/json" \
   -d '{
     "to": "5511999887766",
-    "text": "Hello from WhatsApp!"
+    "text": "Hello from WhatsApp HTTP!"
   }'
 
 # Audio message
@@ -132,7 +168,7 @@ Construído com ❤️ sobre [whatsapp-web.js](https://wwebjs.dev/)
 
 <a name="pt-br"></a>
 
-# Serviço HTTP WhatsApp ✓✓
+# WhatsApp HTTP - Serviço HTTP WhatsApp
 
 HTTP service para mensagens WhatsApp. Construído sobre [whatsapp-web.js](https://wwebjs.dev/).
 
@@ -151,8 +187,8 @@ HTTP service para mensagens WhatsApp. Construído sobre [whatsapp-web.js](https:
 
 ```bash
 # Clone e configure
-git clone https://github.com/caiopizzol/whatsapp.git
-cd whatsapp
+git clone https://github.com/caiopizzol/whatsapp-web-http.git
+cd whatsapp-web-http
 export AUTH_TOKEN=seu-token-secreto-aqui
 
 # Execute com Docker
@@ -192,7 +228,7 @@ curl -X POST http://localhost:3000/sessions/minha-sessao/messages \
   -H "Content-Type: application/json" \
   -d '{
     "to": "5511999887766",
-    "text": "Olá do WhatsApp!"
+    "text": "Olá do WhatsApp HTTP!"
   }'
 
 # Mensagem de áudio
@@ -245,6 +281,32 @@ NODE_ENV=production
 ```
 
 ## Deploy Docker
+
+### Usando Docker Hub
+
+```yaml
+# docker-compose.yml
+services:
+  whatsapp:
+    image: cpolive/whatsapp-web-http:1.4.0  # Or use :latest for latest version
+    ports:
+      - '3000:3000'
+    environment:
+      - AUTH_TOKEN=${AUTH_TOKEN:-your-secret-token-here}
+      - PORT=${PORT:-3000}
+      - NODE_ENV=${NODE_ENV:-production}
+    volumes:
+      - ./whatsapp-sessions:/app/.wwebjs_auth
+    restart: unless-stopped
+    mem_limit: 1g
+    cpus: '1.0'
+
+volumes:
+  whatsapp-sessions:
+    driver: local
+```
+
+### Construindo a partir do código fonte
 
 ```yaml
 # docker-compose.yml

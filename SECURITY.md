@@ -17,7 +17,7 @@ This service uses whatsapp-web.js which:
 
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities to: security@tictic.dev
+Please report security vulnerabilities via GitHub Issues at: https://github.com/caiopizzol/whatsapp-web-http/issues
 
 Include:
 
