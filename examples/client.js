@@ -122,7 +122,11 @@ async function main() {
 
     // 4. Send message
     console.log('Sending message...');
-    const result = await client.sendMessage(sessionId, '5511999887766', 'Hello from TicTic!');
+    const result = await client.sendMessage(
+      sessionId,
+      '5511999887766',
+      'Hello from WhatsApp HTTP!'
+    );
     console.log('Message sent:', result);
   } catch (error) {
     console.error('Error:', error.message);
