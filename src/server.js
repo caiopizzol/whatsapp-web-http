@@ -1,4 +1,4 @@
-// server.js - Enhanced WhatsApp HTTP Service with proper QR handling
+// server.js - Enhanced WhatsApp Web API with proper QR handling
 import { createServer } from 'http';
 import { randomUUID } from 'crypto';
 import { SessionManager } from './SessionManager.js';
@@ -199,5 +199,5 @@ process.on('SIGTERM', async () => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`WhatsApp HTTP Service running on :${PORT}`);
+  console.log(`WhatsApp Web API running on :${PORT}`);
 });

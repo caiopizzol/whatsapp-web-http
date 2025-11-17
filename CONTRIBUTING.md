@@ -1,4 +1,4 @@
-# Contributing to WhatsApp HTTP Service
+# Contributing to WhatsApp Web API
 
 ## Philosophy
 

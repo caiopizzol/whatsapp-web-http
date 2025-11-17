@@ -1,4 +1,4 @@
-# WhatsApp HTTP Service
+# WhatsApp Web API
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/cpolive/whatsapp-web-api)](https://hub.docker.com/r/cpolive/whatsapp-web-api)
 [![Docker Image Size](https://img.shields.io/docker/image-size/cpolive/whatsapp-web-api/latest)](https://hub.docker.com/r/cpolive/whatsapp-web-api)

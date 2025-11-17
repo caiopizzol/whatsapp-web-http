@@ -1,4 +1,4 @@
-// Example client for WhatsApp HTTP Service
+// Example client for WhatsApp Web API
 
 const API_URL = 'http://localhost:3000';
 const API_TOKEN = 'your-secret-token-here';
