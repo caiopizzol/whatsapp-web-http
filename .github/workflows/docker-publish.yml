@@ -9,7 +9,7 @@ on:
       - 'v*'
 
 env:
-  IMAGE_NAME: cpolive/whatsapp-web-http
+  IMAGE_NAME: cpolive/whatsapp-web-api
 
 jobs:
   build-and-push:

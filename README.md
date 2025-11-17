@@ -1,7 +1,7 @@
 # WhatsApp HTTP Service
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/cpolive/whatsapp-web-http)](https://hub.docker.com/r/cpolive/whatsapp-web-http)
-[![Docker Image Size](https://img.shields.io/docker/image-size/cpolive/whatsapp-web-http/latest)](https://hub.docker.com/r/cpolive/whatsapp-web-http)
+[![Docker Pulls](https://img.shields.io/docker/pulls/cpolive/whatsapp-web-api)](https://hub.docker.com/r/cpolive/whatsapp-web-api)
+[![Docker Image Size](https://img.shields.io/docker/image-size/cpolive/whatsapp-web-api/latest)](https://hub.docker.com/r/cpolive/whatsapp-web-api)
 
 HTTP service for WhatsApp messages. Built on [whatsapp-web.js](https://wwebjs.dev/).
 
@@ -24,7 +24,7 @@ HTTP service for WhatsApp messages. Built on [whatsapp-web.js](https://wwebjs.de
 
 ```bash
 # Pull the image
-docker pull cpolive/whatsapp-web-http:latest
+docker pull cpolive/whatsapp-web-api:latest
 
 # Run the container
 docker run -d \
@@ -32,13 +32,13 @@ docker run -d \
   -e AUTH_TOKEN=your-secret-token-here \
   -v ./whatsapp-sessions:/app/.wwebjs_auth \
   --name whatsapp \
-  cpolive/whatsapp-web-http:latest
+  cpolive/whatsapp-web-api:latest
 
 # Or use Docker Compose
 cat > docker-compose.yml << 'EOF'
 services:
   whatsapp:
-    image: cpolive/whatsapp-web-http:latest
+    image: cpolive/whatsapp-web-api:latest
     ports:
       - "3000:3000"
     environment:
@@ -55,8 +55,8 @@ docker-compose up -d
 
 ```bash
 # Clone and configure
-git clone https://github.com/caiopizzol/whatsapp-web-http.git
-cd whatsapp-web-http
+git clone https://github.com/caiopizzol/whatsapp-web-api.git
+cd whatsapp-web-api
 export AUTH_TOKEN=your-secret-token-here
 
 # Run with Docker
@@ -187,8 +187,8 @@ HTTP service para mensagens WhatsApp. Construído sobre [whatsapp-web.js](https:
 
 ```bash
 # Clone e configure
-git clone https://github.com/caiopizzol/whatsapp-web-http.git
-cd whatsapp-web-http
+git clone https://github.com/caiopizzol/whatsapp-web-api.git
+cd whatsapp-web-api
 export AUTH_TOKEN=seu-token-secreto-aqui
 
 # Execute com Docker
@@ -288,7 +288,7 @@ NODE_ENV=production
 # docker-compose.yml
 services:
   whatsapp:
-    image: cpolive/whatsapp-web-http:1.4.0  # Or use :latest for latest version
+    image: cpolive/whatsapp-web-api:1.4.0 # Or use :latest for latest version
     ports:
       - '3000:3000'
     environment:

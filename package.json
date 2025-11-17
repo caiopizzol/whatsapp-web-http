@@ -1,5 +1,5 @@
 {
-    "name": "whatsapp-web-http",
+    "name": "whatsapp-web-api",
     "version": "1.4.0",
     "description": "WhatsApp HTTP - Simple HTTP service for WhatsApp. Built on whatsapp-web.js.",
     "keywords": [
@@ -20,11 +20,11 @@
         "lint:fix": "eslint src lib middleware examples --fix",
         "format": "prettier --write \"src/**/*.js\" \"lib/**/*.js\" \"middleware/**/*.js\" \"examples/**/*.js\"",
         "format:check": "prettier --check \"src/**/*.js\" \"lib/**/*.js\" \"middleware/**/*.js\" \"examples/**/*.js\"",
-        "docker:build": "docker build -t cpolive/whatsapp-web-http:latest .",
-        "docker:build:version": "docker build -t cpolive/whatsapp-web-http:$(node -p \"require('./package.json').version\") .",
+        "docker:build": "docker build -t cpolive/whatsapp-web-api:latest .",
+        "docker:build:version": "docker build -t cpolive/whatsapp-web-api:$(node -p \"require('./package.json').version\") .",
         "docker:push": "npm run docker:push:latest && npm run docker:push:version",
-        "docker:push:latest": "docker push cpolive/whatsapp-web-http:latest",
-        "docker:push:version": "docker push cpolive/whatsapp-web-http:$(node -p \"require('./package.json').version\")",
+        "docker:push:latest": "docker push cpolive/whatsapp-web-api:latest",
+        "docker:push:version": "docker push cpolive/whatsapp-web-api:$(node -p \"require('./package.json').version\")",
         "docker:release": "npm run docker:build && npm run docker:build:version && npm run docker:push",
         "docker:run": "docker-compose up -d",
         "docker:logs": "docker-compose logs -f",
@@ -55,15 +55,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/caiopizzol/whatsapp-web-http.git"
+        "url": "git+https://github.com/caiopizzol/whatsapp-web-api.git"
     },
     "publishConfig": {
         "access": "public"
     },
     "bugs": {
-        "url": "https://github.com/caiopizzol/whatsapp-web-http/issues"
+        "url": "https://github.com/caiopizzol/whatsapp-web-api/issues"
     },
-    "homepage": "https://github.com/caiopizzol/whatsapp-web-http#readme",
+    "homepage": "https://github.com/caiopizzol/whatsapp-web-api#readme",
     "engines": {
         "node": ">=18.0.0"
     }
