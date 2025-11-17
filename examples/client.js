@@ -59,15 +59,14 @@ class WhatsAppClient {
   }
 
   // Send message (text or media) - unified method
-  async sendMessage(sessionId, params) {
+  async sendMessage(sessionId, toOrParams, text) {
     // Handle both old API (3 params) and new API (2 params with object)
-    if (typeof params === 'string') {
+    if (typeof toOrParams === 'string') {
       // Old API: sendMessage(sessionId, to, text)
-      const [to, text] = arguments.slice(1);
-      return this.request('POST', `/sessions/${sessionId}/messages`, { to, text });
+      return this.request('POST', `/sessions/${sessionId}/messages`, { to: toOrParams, text });
     } else {
       // New unified API: sendMessage(sessionId, { to, text, media, options })
-      return this.request('POST', `/sessions/${sessionId}/messages`, params);
+      return this.request('POST', `/sessions/${sessionId}/messages`, toOrParams);
     }
   }
 
