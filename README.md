@@ -9,14 +9,14 @@ HTTP service for WhatsApp messages. Built on [whatsapp-web.js](https://wwebjs.de
 
 ## Features
 
-- 🚀 Send text and media messages via REST API
-- 🎵 Audio support (MP3, OGG, voice notes)
-- 📸 Images, videos, and documents
-- 📱 QR code authentication with 60s timeout
-- 🔄 Multiple isolated sessions
-- ⚡ Session replacement without losing authentication
-- 🔒 Bearer token authentication
-- 💾 Persistence via Docker volumes
+- Send text and media messages via REST API
+- Audio support (MP3, OGG, voice notes)
+- Images, videos, and documents
+- QR code authentication with 60s timeout
+- Multiple isolated sessions
+- Session replacement without losing authentication
+- Bearer token authentication
+- Persistence via Docker volumes
 
 ## Quick Start
 
@@ -174,14 +174,14 @@ HTTP service para mensagens WhatsApp. Construído sobre [whatsapp-web.js](https:
 
 ## Recursos
 
-- 🚀 Envie mensagens de texto e mídia via REST API unificada
-- 🎵 Suporte a áudio (MP3, OGG, notas de voz)
-- 📸 Imagens, vídeos e documentos
-- 📱 Autenticação por QR code com timeout de 60s
-- 🔄 Múltiplas sessões isoladas
-- ⚡ Substituição de sessão sem perder autenticação
-- 🔒 Autenticação Bearer token
-- 💾 Persistência via volumes Docker
+- Envie mensagens de texto e mídia via REST API unificada
+- Suporte a áudio (MP3, OGG, notas de voz)
+- Imagens, vídeos e documentos
+- Autenticação por QR code com timeout de 60s
+- Múltiplas sessões isoladas
+- Substituição de sessão sem perder autenticação
+- Autenticação Bearer token
+- Persistência via volumes Docker
 
 ## Início Rápido
 
