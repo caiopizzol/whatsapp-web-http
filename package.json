@@ -31,21 +31,21 @@
         "prepare": "husky install"
     },
     "dependencies": {
-        "whatsapp-web.js": "^1.23.0"
+        "whatsapp-web.js": "^1.34.2"
     },
     "devDependencies": {
-        "@commitlint/cli": "^19.8.1",
-        "@commitlint/config-conventional": "^19.8.1",
-        "@eslint/js": "^9.31.0",
+        "@commitlint/cli": "^20.1.0",
+        "@commitlint/config-conventional": "^20.0.0",
+        "@eslint/js": "^9.39.1",
         "@semantic-release/changelog": "^6.0.3",
         "@semantic-release/git": "^10.0.1",
-        "eslint": "^8.57.1",
+        "eslint": "^9.39.1",
         "eslint-config-prettier": "^10.1.8",
-        "husky": "^8.0.3",
-        "lint-staged": "^15.5.2",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.2.7",
         "prettier": "^3.6.2",
         "qrcode-terminal": "^0.12.0",
-        "semantic-release": "^24.2.7"
+        "semantic-release": "^25.0.2"
     },
     "lint-staged": {
         "*.js": [

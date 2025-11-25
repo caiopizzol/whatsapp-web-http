@@ -14,6 +14,7 @@ export class SessionManager extends EventEmitter {
     super();
     this.sessions = new Map();
     this.qrStates = new Map(); // Track QR generation state
+    this.verificationCodes = new Map(); // Track verification codes for login
     this.AUTH_DIR = process.env.AUTH_DIR || './.wwebjs_auth';
   }
 
@@ -51,10 +52,7 @@ export class SessionManager extends EventEmitter {
       }),
       puppeteer: {
         headless: true,
-        executablePath:
-          process.platform === 'darwin'
-            ? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-            : undefined,
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       },
       qrMaxRetries: 1, // Important: Only 1 attempt after 60s
@@ -126,6 +124,7 @@ export class SessionManager extends EventEmitter {
       }),
       puppeteer: {
         headless: true,
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       },
       qrMaxRetries: 1, // Important: Only 1 attempt after 60s
@@ -553,5 +552,111 @@ export class SessionManager extends EventEmitter {
     }
 
     return cleaned;
+  }
+
+  // ===== VERIFICATION METHODS =====
+
+  // Generate a random numeric code
+  generateCode(length = 6) {
+    let code = '';
+    for (let i = 0; i < length; i++) {
+      code += Math.floor(Math.random() * 10);
+    }
+    return code;
+  }
+
+  // Send verification code to phone number
+  async sendVerificationCode(sessionId, params) {
+    const { phone, codeLength = 6, expiresIn = 300 } = params;
+
+    if (!phone) {
+      throw new Error('Phone number is required');
+    }
+
+    // Generate code
+    const code = this.generateCode(codeLength);
+    const expiresAt = new Date(Date.now() + expiresIn * 1000);
+
+    // Store verification code
+    const verificationKey = `${sessionId}:${this.formatPhoneNumber(phone)}`;
+    this.verificationCodes.set(verificationKey, {
+      code,
+      phone: this.formatPhoneNumber(phone),
+      expiresAt,
+      attempts: 0,
+      maxAttempts: 3,
+    });
+
+    // Set expiration timer
+    setTimeout(() => {
+      this.verificationCodes.delete(verificationKey);
+    }, expiresIn * 1000);
+
+    // Send the code via WhatsApp
+    const message = `Your verification code is: ${code}\n\nThis code expires in ${Math.floor(expiresIn / 60)} minutes.`;
+
+    try {
+      await this.sendMessage(sessionId, {
+        to: phone,
+        text: message,
+      });
+
+      return {
+        success: true,
+        phone: this.formatPhoneNumber(phone),
+        expiresAt: expiresAt.toISOString(),
+        expiresIn,
+      };
+    } catch (error) {
+      // Clean up on failure
+      this.verificationCodes.delete(verificationKey);
+      throw error;
+    }
+  }
+
+  // Verify code entered by user
+  verifyCode(sessionId, params) {
+    const { phone, code } = params;
+
+    if (!phone || !code) {
+      throw new Error('Phone number and code are required');
+    }
+
+    const verificationKey = `${sessionId}:${this.formatPhoneNumber(phone)}`;
+    const verification = this.verificationCodes.get(verificationKey);
+
+    if (!verification) {
+      throw new Error('No verification code found. Request a new code.');
+    }
+
+    // Check expiration
+    if (new Date() > verification.expiresAt) {
+      this.verificationCodes.delete(verificationKey);
+      throw new Error('Verification code expired. Request a new code.');
+    }
+
+    // Check attempts
+    if (verification.attempts >= verification.maxAttempts) {
+      this.verificationCodes.delete(verificationKey);
+      throw new Error('Too many attempts. Request a new code.');
+    }
+
+    // Increment attempts
+    verification.attempts++;
+
+    // Verify code
+    if (verification.code !== code) {
+      const remaining = verification.maxAttempts - verification.attempts;
+      throw new Error(`Invalid code. ${remaining} attempt${remaining !== 1 ? 's' : ''} remaining.`);
+    }
+
+    // Success - clean up
+    this.verificationCodes.delete(verificationKey);
+
+    return {
+      success: true,
+      phone: verification.phone,
+      verified: true,
+    };
   }
 }

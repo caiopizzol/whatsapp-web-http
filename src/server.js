@@ -38,7 +38,7 @@ router.get('/sessions/:sessionId', async (req, res) => {
   try {
     const status = await sessionManager.getSessionStatus(sessionId);
     res.json(status);
-  } catch (error) {
+  } catch {
     res.status(404).json({ error: 'Session not found' });
   }
 });
@@ -85,7 +85,7 @@ router.delete('/sessions/:sessionId', async (req, res) => {
   try {
     await sessionManager.destroySession(sessionId);
     res.status(204).send();
-  } catch (error) {
+  } catch {
     res.status(404).json({ error: 'Session not found' });
   }
 });
@@ -149,6 +149,79 @@ router.post('/sessions/:sessionId/messages', async (req, res) => {
     } else if (error.message.includes('not found')) {
       res.status(404).json({
         error: 'Session not found',
+      });
+    } else {
+      res.status(500).json({
+        error: error.message,
+      });
+    }
+  }
+});
+
+// ===== VERIFICATION ROUTES =====
+
+// Send verification code
+router.post('/sessions/:sessionId/verify/send', async (req, res) => {
+  const { sessionId } = req.params;
+  const { phone, codeLength, expiresIn } = req.body;
+
+  if (!phone) {
+    return res.status(400).json({
+      error: 'Invalid request',
+      help: 'Provide "phone" (recipient phone number)',
+    });
+  }
+
+  try {
+    const result = await sessionManager.sendVerificationCode(sessionId, {
+      phone,
+      codeLength,
+      expiresIn,
+    });
+    res.status(201).json(result);
+  } catch (error) {
+    if (error.message.includes('not ready')) {
+      res.status(503).json({
+        error: 'Session not ready',
+        help: 'Ensure the WhatsApp session is authenticated before sending codes',
+      });
+    } else if (error.message.includes('not found')) {
+      res.status(404).json({
+        error: 'Session not found',
+      });
+    } else {
+      res.status(500).json({
+        error: error.message,
+      });
+    }
+  }
+});
+
+// Verify code
+router.post('/sessions/:sessionId/verify/check', async (req, res) => {
+  const { sessionId } = req.params;
+  const { phone, code } = req.body;
+
+  if (!phone || !code) {
+    return res.status(400).json({
+      error: 'Invalid request',
+      help: 'Provide "phone" and "code"',
+    });
+  }
+
+  try {
+    const result = sessionManager.verifyCode(sessionId, { phone, code });
+    res.json(result);
+  } catch (error) {
+    if (error.message.includes('expired') || error.message.includes('No verification')) {
+      res.status(410).json({
+        error: error.message,
+        code: 'CODE_EXPIRED',
+      });
+    } else if (error.message.includes('Invalid code') || error.message.includes('Too many')) {
+      res.status(400).json({
+        error: error.message,
+        code: 'INVALID_CODE',
       });
     } else {
       res.status(500).json({

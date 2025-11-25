@@ -1,7 +1,7 @@
 // Example client for WhatsApp Web API
 
-const API_URL = 'http://localhost:3000';
-const API_TOKEN = 'your-secret-token-here';
+const API_URL = process.env.API_URL || 'http://localhost:3000';
+const API_TOKEN = process.env.API_TOKEN || 'your-secret-token-here';
 
 class WhatsAppClient {
   constructor(apiUrl, apiToken) {
@@ -100,7 +100,7 @@ async function main() {
       try {
         const qrcode = await import('qrcode-terminal');
         qrcode.default.generate(qr.qr, { small: true });
-      } catch (error) {
+      } catch {
         console.log('QR Code available - use a QR scanner to display it');
       }
     }
@@ -110,8 +110,9 @@ async function main() {
     let authenticated = false;
 
     while (!authenticated) {
+      // eslint-disable-next-line no-await-in-loop
       await new Promise((resolve) => setTimeout(resolve, 5000));
-
+      // eslint-disable-next-line no-await-in-loop
       const status = await client.getSession(sessionId);
       if (status.status === 'ready') {
         authenticated = true;
