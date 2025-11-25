@@ -38,8 +38,8 @@ class WhatsAppClient {
   }
 
   // Session methods
-  async createSession() {
-    return this.request('POST', '/sessions', {});
+  async createSession(sessionId = null) {
+    return this.request('POST', '/sessions', sessionId ? { sessionId } : {});
   }
 
   async getSession(sessionId) {
@@ -81,10 +81,10 @@ async function main() {
   const client = new WhatsAppClient(API_URL, API_TOKEN);
 
   try {
-    // 1. Create session with auto-generated ID
+    // 1. Create session with fixed ID (matches whatsapp-login example)
+    const sessionId = 'your-session-id-here';
     console.log('Creating session...');
-    const sessionResult = await client.createSession();
-    const sessionId = sessionResult.sessionId;
+    await client.createSession(sessionId);
     console.log(`Using session: ${sessionId}`);
 
     // 2. Get QR code
