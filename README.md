@@ -158,8 +158,8 @@ curl -X POST http://localhost:3000/sessions/my-session/messages \
 | `GET /sessions/{id}` | Session status |
 | `GET /sessions/{id}/qr` | QR code (60s timeout) |
 | `POST /sessions/{id}/messages` | Send message (text or media) |
-| `POST /sessions/{id}/verify/send` | Send verification code |
-| `POST /sessions/{id}/verify/check` | Verify code |
+| `POST /sessions/{id}/verify/send` | Send verification code **NEW** |
+| `POST /sessions/{id}/verify/check` | Verify code **NEW** |
 | `DELETE /sessions/{id}` | Delete session |
 | `GET /health` | Service status |
 
