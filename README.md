@@ -8,6 +8,7 @@ HTTP service for WhatsApp messages. Built on [whatsapp-web.js](https://wwebjs.de
 ## Features
 
 - Send text and media messages via REST API
+- Phone verification endpoints (OTP via WhatsApp)
 - Audio support (MP3, OGG, voice notes)
 - Images, videos, and documents
 - QR code authentication with 60s timeout
@@ -15,6 +16,21 @@ HTTP service for WhatsApp messages. Built on [whatsapp-web.js](https://wwebjs.de
 - Session replacement without losing authentication
 - Bearer token authentication
 - Persistence via Docker volumes
+
+## Use with WhatsApp Login
+
+This API is the default backend for [@whatsapp-login/react](https://github.com/caiopizzol/whatsapp-login) - a drop-in React component for WhatsApp phone verification.
+
+```jsx
+import { WhatsAppLogin } from '@whatsapp-login/react'
+
+<WhatsAppLogin
+  apiUrl="http://localhost:3000"
+  sessionId="login"
+  authToken="your-token"
+  onSuccess={({ phone }) => console.log('Verified:', phone)}
+/>
+```
 
 ## Quick Start
 
@@ -136,12 +152,16 @@ curl -X POST http://localhost:3000/sessions/my-session/messages \
 
 ## Key Endpoints
 
-- `POST /sessions` - Create session
-- `GET /sessions/{id}` - Session status
-- `GET /sessions/{id}/qr` - QR code (60s timeout)
-- `POST /sessions/{id}/messages` - Send message
-- `DELETE /sessions/{id}` - Delete session
-- `GET /health` - Service status
+| Endpoint | Description |
+| -------- | ----------- |
+| `POST /sessions` | Create session |
+| `GET /sessions/{id}` | Session status |
+| `GET /sessions/{id}/qr` | QR code (60s timeout) |
+| `POST /sessions/{id}/messages` | Send message (text or media) |
+| `POST /sessions/{id}/verify/send` | Send verification code |
+| `POST /sessions/{id}/verify/check` | Verify code |
+| `DELETE /sessions/{id}` | Delete session |
+| `GET /health` | Service status |
 
 ## Resource Requirements
 
