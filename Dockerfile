@@ -11,6 +11,9 @@ COPY src ./src
 COPY lib ./lib
 COPY middleware ./middleware
 
+# Create session directory for volume mount
+RUN mkdir -p /app/.wwebjs_auth && chmod 777 /app/.wwebjs_auth
+
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
