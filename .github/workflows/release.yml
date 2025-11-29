@@ -24,10 +24,12 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run format:check
 
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
