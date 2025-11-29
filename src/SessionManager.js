@@ -348,9 +348,16 @@ export class SessionManager extends EventEmitter {
       throw new Error('Must provide either text or media');
     }
 
-    // Format phone number
-    const formattedNumber = this.formatPhoneNumber(to);
-    const chatId = formattedNumber + '@c.us';
+    // Determine chat ID - groups use @g.us, contacts use @c.us
+    let chatId;
+    if (to.includes('@')) {
+      // Already a full chat ID (e.g., 120363...@g.us)
+      chatId = to;
+    } else {
+      // Phone number - format and add @c.us
+      const formattedNumber = this.formatPhoneNumber(to);
+      chatId = formattedNumber + '@c.us';
+    }
 
     let content;
 
@@ -382,7 +389,7 @@ export class SessionManager extends EventEmitter {
     return {
       success: true,
       messageId: message.id._serialized,
-      to: formattedNumber,
+      to: chatId,
       type: media ? 'media' : 'text',
       timestamp: new Date().toISOString(),
     };
