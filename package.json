@@ -1,6 +1,6 @@
 {
     "name": "whatsapp-web-api",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "description": "WhatsApp HTTP - Simple HTTP service for WhatsApp. Built on whatsapp-web.js.",
     "keywords": [
         "whatsapp",

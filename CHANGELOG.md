@@ -1,3 +1,19 @@
+# [1.5.0](https://github.com/caiopizzol/whatsapp-web-api/compare/v1.4.0...v1.5.0) (2025-11-29)
+
+
+### Bug Fixes
+
+* lint ([ee8fec4](https://github.com/caiopizzol/whatsapp-web-api/commit/ee8fec45695ec87853214987579c1a2d37f658a6))
+* match session id for whatsapp-login ([e26a63d](https://github.com/caiopizzol/whatsapp-web-api/commit/e26a63d1cdb845d9d18b147a94082eff9a310f97))
+* sending chat messages ([98d20d4](https://github.com/caiopizzol/whatsapp-web-api/commit/98d20d482a79d6ccd5d7e9a5b22a95bbb9e848a7))
+* session dir for volume persist ([aad16d5](https://github.com/caiopizzol/whatsapp-web-api/commit/aad16d58eb2dde77ed063e9a38f65b235e990bfa))
+
+
+### Features
+
+* new groups endpoint ([09f9f34](https://github.com/caiopizzol/whatsapp-web-api/commit/09f9f34362c11409c560a91921e36def058092e8))
+* new verify endpoint ([d8aab5f](https://github.com/caiopizzol/whatsapp-web-api/commit/d8aab5f09b7ccfc30d2132b1d1fe8acd0588696c))
+
 # [1.4.0](https://github.com/caiopizzol/whatsapp-web-api/compare/v1.3.1...v1.4.0) (2025-07-26)
 
 ### Features
