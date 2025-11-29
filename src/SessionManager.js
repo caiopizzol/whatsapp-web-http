@@ -554,6 +554,39 @@ export class SessionManager extends EventEmitter {
     return cleaned;
   }
 
+  // ===== GROUP METHODS =====
+
+  // Get all groups for a session
+  async getGroups(sessionId) {
+    let session = this.sessions.get(sessionId);
+
+    // If not in memory, try to load from disk
+    if (!session && this.sessionExistsOnDisk(sessionId)) {
+      session = await this.loadSessionFromDisk(sessionId);
+    }
+
+    if (!session) {
+      throw new Error('Session not found');
+    }
+
+    if (session.status !== 'ready') {
+      throw new Error('Session not ready');
+    }
+
+    // Get all chats and filter for groups
+    const chats = await session.client.getChats();
+    const groups = chats
+      .filter((chat) => chat.isGroup)
+      .map((chat) => ({
+        id: chat.id._serialized,
+        name: chat.name,
+        participantsCount: chat.participants?.length || 0,
+        isReadOnly: chat.isReadOnly || false,
+      }));
+
+    return groups;
+  }
+
   // ===== VERIFICATION METHODS =====
 
   // Generate a random numeric code

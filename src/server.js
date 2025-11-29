@@ -158,6 +158,33 @@ router.post('/sessions/:sessionId/messages', async (req, res) => {
   }
 });
 
+// ===== GROUP ROUTES =====
+
+// Get all groups for a session
+router.get('/sessions/:sessionId/groups', async (req, res) => {
+  const { sessionId } = req.params;
+
+  try {
+    const groups = await sessionManager.getGroups(sessionId);
+    res.json(groups);
+  } catch (error) {
+    if (error.message.includes('not ready')) {
+      res.status(503).json({
+        error: 'Session not ready',
+        help: 'Check session status or authenticate with QR',
+      });
+    } else if (error.message.includes('not found')) {
+      res.status(404).json({
+        error: 'Session not found',
+      });
+    } else {
+      res.status(500).json({
+        error: error.message,
+      });
+    }
+  }
+});
+
 // ===== VERIFICATION ROUTES =====
 
 // Send verification code
